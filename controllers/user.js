@@ -10,7 +10,7 @@ console.log(Object.keys(db));
 
 // SIGNUP DES UTILISATEURS //
 exports.signup = async (req, res, next) => {
-    
+
     const User = db.User;
     try {
         bcrypt.hash(req.body.password, 10)
@@ -119,14 +119,16 @@ exports.getOneUser = (req, res, next) => {
     db.User.findOne({
             where: {
                 id: userId,
+
             },
+
         })
         .then((user) => res.status(200).json({
             user
         }))
         .catch((err) => res.status(401).json({
             err
-        }));
+        }))
 };
 
 
