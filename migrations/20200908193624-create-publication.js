@@ -12,13 +12,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      Date: {
-        type: Sequelize.DATETIME
+      Date:{
+        type:Sequelize.DATETIME
       },
       title: {
-        type: Sequelize.STRING
-      },
-      attachment: {
         type: Sequelize.STRING
       },
       content: {

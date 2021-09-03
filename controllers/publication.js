@@ -34,7 +34,6 @@ exports.createPublication = (req, res, next) => {
                 'title': req.body.title,
                 'content': req.body.content,
                 'likes': req.body.likes,
-                'attachment': `${req.body.inputFile}`
 
             };
 
@@ -113,7 +112,6 @@ exports.modifyPublication = async (req, res) => {
         await models.Publication.update({
             title: req.body.title,
             content: req.body.content,
-            attachment: req.body.attachment
 
         }, {
             where: {
