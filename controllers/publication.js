@@ -1,6 +1,5 @@
 'use strict';
 
-// Une inclusion pour les gouverner tous
 const models = require('../models/index.js');
 
 // Inclusion des services
@@ -34,6 +33,7 @@ exports.createPublication = (req, res, next) => {
                 'title': req.body.title,
                 'content': req.body.content,
                 'likes': req.body.likes,
+                'attachment': req.body.attachment
 
             };
 
@@ -112,6 +112,7 @@ exports.modifyPublication = async (req, res) => {
         await models.Publication.update({
             title: req.body.title,
             content: req.body.content,
+            attachment: `${req.body.inputFile}`
 
         }, {
             where: {

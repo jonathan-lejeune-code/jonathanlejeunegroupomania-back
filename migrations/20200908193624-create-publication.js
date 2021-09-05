@@ -12,13 +12,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      Date:{
-        type:Sequelize.DATETIME
-      },
       title: {
         type: Sequelize.STRING
       },
       content: {
+        type: Sequelize.STRING
+      },
+      attachment: {
         type: Sequelize.STRING
       },
       likes: {

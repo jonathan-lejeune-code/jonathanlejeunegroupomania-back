@@ -1,28 +1,29 @@
-
-
 CREATE TABLE `users` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(255) NOT NULL,         
-  `email` VARCHAR(50) NOT NULL,
-  `password` VARCHAR(255) NOT NULL,
-  `admin` INT UNSIGNED DEFAULT NULL,  
+  `id` int(11) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `isAdmin` tinyint(1) DEFAULT NULL,
   `createdAt` date NOT NULL,
-  `updatedAt` time NOT NULL ,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)            
-) 
-ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+  `updatedAt` time NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 CREATE TABLE `publications` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT, 
-  `userId` INT UNSIGNED NOT NULL,
-  `date` DATETIME NOT NULL,
-  `title` VARCHAR(50) NOT NULL,             
-  `content` TEXT NOT NULL,      
+  `id` int(11) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `content` varchar(255) DEFAULT NULL,
+  `likes` int(11) DEFAULT NULL,
   `createdAt` date NOT NULL,
-  `updatedAt` time NOT NULL,            
+  `updatedAt` time NOT NULL,
+  `UserId` int(11) DEFAULT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+ALTER TABLE
+  `publications`
+ADD
   PRIMARY KEY (`id`),
-  KEY `fk_userId` (`userId`),            
-  CONSTRAINT `fk_userId` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-  )                                                                                                         
-
-
+ADD
+  KEY `UserId` (`UserId`);
+ALTER TABLE
+  `publications`
+MODIFY
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  AUTO_INCREMENT = 605;
