@@ -13,6 +13,8 @@ router.post('/', auth, multer, publicationCtrl.createPublication);
 // GET //
 router.get('/', auth, publicationCtrl.getAllPublication);
 
+//LIKES//
+router.post('/:id/like', auth, publicationCtrl.postLikes);
 
 // GET ONE //
 router.get('/:id', auth, publicationCtrl.getOnePublication);
