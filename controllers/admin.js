@@ -26,7 +26,7 @@ exports.getAllPublicationsAdmin = (req, res, next) => {
                 attributes: ['id', 'username']
             }],
             order: [
-                ["id", "DESC"]
+                ["updatedAt", "DESC"]
             ]
         })
         .then(publications => res.status(200).json({
