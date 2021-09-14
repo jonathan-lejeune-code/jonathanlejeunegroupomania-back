@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
             email: DataTypes.STRING,
             username: DataTypes.STRING,
             password: DataTypes.STRING,
-            admin: DataTypes.BOOLEAN
+            isAdmin: DataTypes.BOOLEAN
         }, {}
     );
 
