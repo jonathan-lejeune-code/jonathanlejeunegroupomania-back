@@ -19,6 +19,7 @@ exports.signup = async (req, res, next) => {
                     username: req.body.username,
                     email: req.body.email,
                     password: hash,
+                    avatar: req.body.avatar,
                     isAdmin: req.body.isAdmin,
                 });
                 user.save()
