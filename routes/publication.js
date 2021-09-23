@@ -25,6 +25,12 @@ router.put('/:id', auth, multer, publicationCtrl.modifyPublication);
 // DELETE //
 router.delete('/:id', auth, publicationCtrl.deletePublication);
 
+// POST COMMENTS //
+router.post('/comments', auth, multer, publicationCtrl.creationComment);
+
+// DELETE COMMENTS //
+router.delete("/comments/:id", auth, publicationCtrl.supprimeComment);
+
 
 // EXPORT //
 

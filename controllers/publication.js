@@ -223,3 +223,64 @@ exports.deletePublication = async (req, res, next) => {
         });
     }
 }
+
+exports.creationComment = (req, res, next) => {
+    let headerAuth = req.headers["authorization"];
+    let userId = jwtUtils.getUserId(headerAuth);
+    console.log(req.body)
+    models.comments.create({
+            publicationId: req.body.publicationId,
+            userId: userId,
+            content: req.body.content,
+        })
+        .then(
+            (
+                comments // console.log(comment))
+            ) => res.status(201).json({
+                comments
+            })
+        )
+        .catch((error) => console.log(error));
+    //  res.status(500).json(error))
+};
+
+exports.supprimeComment = (req, res, next) => { //suppresion commentaire
+    //identification du demandeur
+    let userOrder = req.body.userIdOrder;
+    let headerAuth = req.headers["authorization"];
+    let userId = jwtUtils.getUserId(headerAuth);
+    console.log(userId);
+    models.User.findOne({
+            attributes: ["id", "email", "username", "isAdmin"],
+            where: {
+                id: userId
+            },
+        })
+        .then((user) => {
+            //Vérification que le demandeur est soit l'admin soit le poster
+            if (user && (user.isAdmin == true || user.id == userOrder)) {
+                //userOrder et l'id de la personne qui créé le commentaire (envouyer par le front)
+                console.log("Suppression commentaire avec l'id :", req.params.id); //récupère l'id en provenance de l'url
+                models.comments.findOne({
+                        where: {
+                            id: req.params.id
+                        },
+                    })
+                    .then((postFind) => {
+
+                        models.comments.destroy({
+                                where: {
+                                    id: postFind.id
+                                },
+                            })
+                            .then(() => res.end())
+                            .catch((err) => res.status(500).json(err));
+
+                    })
+                    .catch((err) => res.status(500).json(err));
+            } else {
+                res.status(403).json("Utilisateur non autorisé à supprimer ce commentaire");
+            }
+        })
+        .catch((error) => res.status(500).json(error));
+};

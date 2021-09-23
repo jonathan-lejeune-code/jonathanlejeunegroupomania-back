@@ -16,7 +16,13 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false
             }
         })
+        Publication.hasMany(models.comments, {
+            foreignKey: "PublicationId"
+        }, {
+            onDelete: 'cascade'
+        });
     };
+
 
     return Publication;
 };
