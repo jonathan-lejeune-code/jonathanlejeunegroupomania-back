@@ -224,13 +224,14 @@ exports.deletePublication = async (req, res, next) => {
     }
 }
 
-exports.creationComment = (req, res, next) => {
+exports.createComment = (req, res, next) => {
     let headerAuth = req.headers["authorization"];
     let userId = jwtUtils.getUserId(headerAuth);
     console.log(req.body)
     models.comments.create({
             publicationId: req.body.publicationId,
             userId: userId,
+            username: req.body.username,
             content: req.body.content,
         })
         .then(
@@ -244,7 +245,7 @@ exports.creationComment = (req, res, next) => {
     //  res.status(500).json(error))
 };
 
-exports.supprimeComment = (req, res, next) => { //suppresion commentaire
+exports.deleteComment = (req, res, next) => { //suppresion commentaire
     //identification du demandeur
     let userOrder = req.body.userIdOrder;
     let headerAuth = req.headers["authorization"];

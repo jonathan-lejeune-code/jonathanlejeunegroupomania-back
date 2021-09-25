@@ -28,7 +28,7 @@ MODIFY
   `id` int(11) NOT NULL AUTO_INCREMENT,
   AUTO_INCREMENT = 605;
 CREATE TABLE `comments` (
-    `idcom` int NOT NULL,
+    `id` int NOT NULL,
     `publicationId` INT(11) NOT NULL,
     `userId` int(11) NOT NULL,
     `username` varchar(255) DEFAULT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE `comments` (
 ALTER TABLE
   `comments`
 ADD
-  PRIMARY KEY (`idcom`),
+  PRIMARY KEY (`id`),
 ADD
   KEY `userid` (`userid`) USING BTREE,
 ADD
@@ -49,7 +49,7 @@ ADD
 ALTER TABLE
   `comments`
 MODIFY
-  `idcom` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   AUTO_INCREMENT = 80;
 ALTER TABLE
   `comments`

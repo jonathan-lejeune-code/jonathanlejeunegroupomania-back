@@ -8,10 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      idcom: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
+
       publicationId: {
         allowNull: false,
         type: Sequelize.INTEGER
