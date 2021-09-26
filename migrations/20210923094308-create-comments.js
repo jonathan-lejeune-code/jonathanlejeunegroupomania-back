@@ -11,11 +11,19 @@ module.exports = {
 
       publicationId: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        reference: {
+          models: "publication",
+          key: "id"
+        }
       },
       userId: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        reference: {
+          models: "user",
+          key: "id"
+        }
       },
       username: {
         allowNull: false,
