@@ -129,7 +129,7 @@ exports.modifyPublication = async (req, res) => {
     } catch (err) {
         return res.status(500).json(err);
     }
-}
+};
 
 
 exports.deletePublication = async (req, res, next) => {
@@ -148,66 +148,67 @@ exports.deletePublication = async (req, res, next) => {
             err
         });
     }
-}
-
-exports.createComment = (req, res, next) => {
-    let headerAuth = req.headers["authorization"];
-    let userId = jwtUtils.getUserId(headerAuth);
-    console.log(req.body)
-    models.comments.create({
-            publicationId: req.body.publicationId,
-            userId: userId,
-            username: req.body.username,
-            content: req.body.content,
-        })
-        .then(
-            (
-                comments // console.log(comment))
-            ) => res.status(201).json({
-                comments
-            })
-        )
-        .catch((error) => console.log(error));
-    //  res.status(500).json(error))
 };
 
-exports.deleteComment = (req, res, next) => { //suppresion commentaire
-    //identification du demandeur
-    let userOrder = req.body.userIdOrder;
-    let headerAuth = req.headers["authorization"];
-    let userId = jwtUtils.getUserId(headerAuth);
-    console.log(userId);
-    models.User.findOne({
-            attributes: ["id", "email", "username", "isAdmin"],
+//Création d'un commentaire
+exports.createComment = async (req, res) => {
+    try {
+        let comments = req.body.comments;
+
+        const newCom = await models.comment.create({
+            comments: comments,
+            userId: req.user.id,
+            publicationId: req.params.id
+        });
+
+        if (newCom) {
+            res.status(201).json({
+                message: "Votre commentaire a été envoyé",
+                newCom
+            });
+        } else {
+            throw new Error("Une erreur est survenue. S'il vous plaît, veuillez réeessayer plus tard");
+        }
+    } catch (error) {
+        res.status(400).json({
+            error: error.message
+        });
+    }
+
+};
+
+//Récupération des commentaires
+exports.getComments = async (req, res) => {
+    try {
+        const order = req.query.order;
+        const comments = await models.comment.findAll({
+            attributes: [
+                "id",
+                "comments",
+                "userId",
+                "publicationId",
+                "createdAt",
+                "updatedAt"
+            ],
+            order: [order != null ? order.split(":") : ["createdAt", "DESC"]],
             where: {
-                id: userId
+                publicationId: req.params.id
             },
-        })
-        .then((user) => {
-            //Vérification que le demandeur est soit l'admin soit le poster
-            if (user && (user.isAdmin == true || user.id == userOrder)) {
-                //userOrder et l'id de la personne qui créé le commentaire (envouyer par le front)
-                console.log("Suppression commentaire avec l'id :", req.params.id); //récupère l'id en provenance de l'url
-                models.comments.findOne({
-                        where: {
-                            id: req.params.id
-                        },
-                    })
-                    .then((postFind) => {
-
-                        models.comments.destroy({
-                                where: {
-                                    id: postFind.id
-                                },
-                            })
-                            .then(() => res.end())
-                            .catch((err) => res.status(500).json(err));
-
-                    })
-                    .catch((err) => res.status(500).json(err));
-            } else {
-                res.status(403).json("Utilisateur non autorisé à supprimer ce commentaire");
-            }
-        })
-        .catch((error) => res.status(500).json(error));
+            include: [{
+                model: models.user,
+                attributes: ["username"]
+            }]
+        });
+        if (comments) {
+            res.status(200).send({
+                message: comments
+            });
+        } else {
+            throw new Error("Il n'y a pas de commentaire");
+        }
+    } catch (error) {
+        res.status(400).json({
+            error: error.message
+        });
+    }
 };
