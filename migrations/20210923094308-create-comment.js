@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
 
-      publicationId: {
+      postId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {

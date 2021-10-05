@@ -29,7 +29,7 @@ MODIFY
   AUTO_INCREMENT = 605;
 CREATE TABLE `comments` (
     `id` int NOT NULL,
-    `publicationId` INT(11) NOT NULL,
+    `postId` INT(11) NOT NULL,
     `userId` int(11) NOT NULL,
     `username` varchar(255) DEFAULT NULL,
     `content` varchar(255) DEFAULT NULL,

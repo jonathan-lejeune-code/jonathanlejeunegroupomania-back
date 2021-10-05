@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   const comments = sequelize.define(
     "comments", {
 
-      publicationId: DataTypes.INTEGER,
+      postId: DataTypes.INTEGER,
       userId: DataTypes.INTEGER,
       username: DataTypes.STRING,
       comments: DataTypes.STRING,
@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     }); //plusieurs messages peuvent-être lié à un user
     comments.belongsTo(models.Publication, {
       //plusieurs commentaires peuvent-être lié à un user
-      foreignKey: "publicationId",
+      foreignKey: "postId",
       onDelete: "CASCADE",
     });
   };
