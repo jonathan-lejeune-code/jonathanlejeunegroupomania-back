@@ -10,9 +10,9 @@ exports.getAllComment = (req, res) => {
     models.Comment.findAll({
             attributes: [
                 "id",
-                "content",
                 "userId",
                 "postId",
+                "content",
                 "createdAt",
                 "updatedAt"
             ],
@@ -34,4 +34,22 @@ exports.getAllComment = (req, res) => {
             error: "une erreur sur le commentaire",
             error: error
         }));
+};
+
+exports.deleteComment = async (req, res) => {
+    try {
+        await models.Comment.destroy({
+            where: {
+                id: (req.params.id)
+            }
+        });
+        return res.status(200).send({
+            message: "Comment supprimée"
+        })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            err
+        });
+    }
 };
