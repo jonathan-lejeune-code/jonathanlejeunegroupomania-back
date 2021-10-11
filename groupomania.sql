@@ -43,7 +43,7 @@ ADD
 ADD
   KEY `userid` (`userid`) USING BTREE,
 ADD
-  KEY `publicationId` (`publicationId`, `userid`) USING BTREE,
+  KEY `postId` (`postId`, `userid`) USING BTREE,
 ADD
   KEY `username` (`username`);
 ALTER TABLE
@@ -54,8 +54,6 @@ MODIFY
 ALTER TABLE
   `comments`
 ADD
-  CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`publicationId`) REFERENCES `Publications` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`postId`) REFERENCES `Publications` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD
-  CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD
-  CONSTRAINT `comments_ibfk_3` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON UPDATE CASCADE;
+  CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;

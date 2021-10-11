@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+// On utilise le token pour identifier la personne qui publie le commentaire
 const jwt = require('jsonwebtoken');
 
 const fs = require('fs');
