@@ -7,8 +7,8 @@ const multer = require('../middleware/multer-config');
 
 // ROUTES //
 
-// // POST //
-// router.post("/:id/comments", auth, multer, commentsctrl.createComment);
+// POST //
+router.post("/:id/comments", auth, multer, commentsctrl.createComment);
 
 // GET //
 router.get("/:id/comments", auth, commentsctrl.getAllComment);
