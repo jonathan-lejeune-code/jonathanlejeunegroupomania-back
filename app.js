@@ -13,6 +13,7 @@ require('dotenv').config()
 
 const userRoutes = require('./routes/user');
 const publicationRoutes = require('./routes/publication');
+const commentsRoutes = require('./routes/comments');
 const adminRoutes = require('./routes/admin');
 const path = require('path');
 
@@ -38,6 +39,7 @@ app.use(cors());
 app.use('/api/auth', userRoutes);
 app.use('/api/publications', publicationRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/publications/', commentsRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 

@@ -1,18 +1,21 @@
 const models = require("../models");
 
+
 // On utilise le token pour identifier la personne qui publie le commentaire
 const jwt = require('jsonwebtoken');
 
 
 
+
+
 exports.getAllComment = (req, res) => {
 
-    models.Comment.findAll({
+    models.comments.findAll({
             attributes: [
                 "id",
                 "userId",
                 "postId",
-                "content",
+                "comment",
                 "createdAt",
                 "updatedAt"
             ],
@@ -22,7 +25,7 @@ exports.getAllComment = (req, res) => {
                 postId: req.params.id
             },
             include: [{
-                    model: models.User,
+                    model: models.user,
                     attributes: ['username']
                 },
 
@@ -33,12 +36,13 @@ exports.getAllComment = (req, res) => {
         .catch(error => res.status(400).json({
             error: "une erreur sur le commentaire",
             error: error
+
         }));
 };
 
 exports.deleteComment = async (req, res) => {
     try {
-        await models.Comment.destroy({
+        await models.Comments.destroy({
             where: {
                 id: (req.params.id)
             }
