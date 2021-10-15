@@ -32,7 +32,7 @@ CREATE TABLE `comments` (
     `postId` INT(11) NOT NULL,
     `userId` int(11) NOT NULL,
     `username` varchar(255) DEFAULT NULL,
-    `content` varchar(255) DEFAULT NULL,
+    `comments` varchar(255) DEFAULT NULL,
     `createdAt` date NOT NULL,
     `updatedAt` time NOT NULL
   ) ENGINE = InnoDB DEFAULT CHARSET = utf8;

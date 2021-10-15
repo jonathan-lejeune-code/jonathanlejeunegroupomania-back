@@ -1,56 +1,35 @@
 const models = require("../models");
-
-
 // On utilise le token pour identifier la personne qui publie le commentaire
 const jwt = require('jsonwebtoken');
 
 
 //Création d'un commentaire
-exports.createComment = async (req, res) => {
-    try {
-        let comments = req.body.comment;
+exports.createComment = (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, process.env.KEY_TOKEN);
+    const userId = decodedToken.userId;
 
-        const newCom = await models.comments.create({
-            comment: comments,
-            userId: req.user.id,
-            postId: req.params.id
-        });
-
-        if (newCom) {
-            res.status(201).json({
-                message: "commentaire envoyé",
-                newCom
+    if (req.body.comments === "") {
+        return res
+            .status(400)
+            .json({
+                error: "Merci de remplir le champ commentaire."
             });
-        } else {
-            throw new Error("Désolé, il y a un soucis");
-        }
-    } catch (error) {
-        res.status(400).json({
-            error: error.message
-        });
     }
 
+    models.comments.create({
+            userId: userId,
+            postId: req.params.id,
+            comments: req.body.comments,
+        })
+        .then(() => res.status(200).json({
+            message: "Commentaire enregistré !"
+        }))
+        .catch((error) => res.status(500).json(error));
 };
+
 
 //test ok 
-exports.deleteComment = async (req, res) => {
-    try {
-        await models.comments.destroy({
-            where: {
-                id: (req.params.id)
-            }
-        });
-        return res.status(200).send({
-            message: "Commentaire supprimée"
-        })
-    } catch (err) {
-        console.log(err);
-        return res.status(500).json({
-            err
-        });
-    }
-};
-
 
 exports.getAllComment = (req, res) => {
 
@@ -66,7 +45,7 @@ exports.getAllComment = (req, res) => {
 
             order: sequelize.literal('id DESC'),
             where: {
-                id: req.params.id
+                postId: req.params.id
             },
             include: [{
                     model: models.User,
@@ -82,4 +61,23 @@ exports.getAllComment = (req, res) => {
             error: error
 
         }));
+};
+
+//test ok 
+exports.deleteComment = async (req, res, next) => {
+    try {
+        await models.comments.destroy({
+            where: {
+                id: (req.params.id)
+            }
+        });
+        return res.status(200).send({
+            message: "Commentaire supprimée"
+        })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            err
+        });
+    }
 };
