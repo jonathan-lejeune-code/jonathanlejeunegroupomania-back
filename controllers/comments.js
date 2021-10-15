@@ -38,7 +38,7 @@ exports.getAllComment = (req, res) => {
                 "id",
                 "userId",
                 "postId",
-                "comment",
+                "comments",
                 "createdAt",
                 "updatedAt"
             ],
