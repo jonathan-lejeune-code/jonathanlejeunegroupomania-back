@@ -48,11 +48,9 @@ exports.getAllComment = (req, res) => {
                 postId: req.params.id
             },
             include: [{
-                    model: models.User,
-                    attributes: ['username']
-                },
-
-            ],
+                model: models.User,
+                attributes: ["username"]
+            }]
         })
 
         .then(comments => res.status(200).json(comments))
