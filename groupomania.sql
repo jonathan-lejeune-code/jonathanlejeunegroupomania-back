@@ -31,7 +31,6 @@ CREATE TABLE `comments` (
     `id` int NOT NULL,
     `postId` INT(11) NOT NULL,
     `userId` int(11) NOT NULL,
-    `username` varchar(255) DEFAULT NULL,
     `comments` varchar(255) DEFAULT NULL,
     `createdAt` date NOT NULL,
     `updatedAt` time NOT NULL
