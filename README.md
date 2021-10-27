@@ -28,3 +28,6 @@ git front:https://github.com/jonathan-lejeune-code/jonathanlejeunegroupomania-fr
 5 - Exécutez la commande npm install
 
 6 - Exécutez la commande npm run serve
+
+7 - Utilisateur Admin avec les droits de modération :
+Email: admin@mail.fr Mdp: @Admin123
